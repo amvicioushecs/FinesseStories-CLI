@@ -5,6 +5,7 @@ from manuscriptfinesse.agents.synthesizer import BibleSynthesizerAgent
 from manuscriptfinesse.agents.outliner import OutlinerAgent
 from manuscriptfinesse.agents.drafter import DrafterAgent, assemble_sliding_context
 from manuscriptfinesse.agents.auditor import ContinuityAuditorAgent, compute_hash_repetition_score
+from manuscriptfinesse.agents.polisher import PolisherAgent
 
 __all__ = [
     "BaseAgent",
@@ -14,7 +15,9 @@ __all__ = [
     "OutlinerAgent",
     "DrafterAgent",
     "ContinuityAuditorAgent",
+    "PolisherAgent",
     "assemble_sliding_context",
     "compute_hash_repetition_score",
     "load_input",
 ]
+

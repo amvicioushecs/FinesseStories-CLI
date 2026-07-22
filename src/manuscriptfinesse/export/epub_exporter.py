@@ -1,26 +1,29 @@
+import html
+import uuid
 from typing import List, Dict, Any, Optional
 from ebooklib import epub
 from manuscriptfinesse.export.base_exporter import BaseExporter
 
 
 def text_to_html(text: str) -> str:
-    """Converts plain text or basic Markdown paragraphs into HTML paragraph elements."""
+    """Converts raw text or basic Markdown paragraphs to valid escaped XHTML paragraph tags."""
     if not text:
         return ""
-    paragraphs = text.split("\n\n")
-    html_p = []
+    paragraphs = text.strip().split("\n\n")
+    html_parts = []
     for p in paragraphs:
-        cleaned = p.strip().replace("\n", "<br/>")
-        if cleaned:
-            if cleaned.startswith("# "):
-                html_p.append(f"<h1>{cleaned[2:]}</h1>")
-            elif cleaned.startswith("## "):
-                html_p.append(f"<h2>{cleaned[3:]}</h2>")
-            elif cleaned.startswith("### "):
-                html_p.append(f"<h3>{cleaned[4:]}</h3>")
-            else:
-                html_p.append(f"<p>{cleaned}</p>")
-    return "".join(html_p)
+        cleaned = p.strip()
+        if not cleaned:
+            continue
+        if cleaned.startswith("# "):
+            html_parts.append(f"<h2>{html.escape(cleaned[2:])}</h2>")
+        elif cleaned.startswith("## "):
+            html_parts.append(f"<h3>{html.escape(cleaned[3:])}</h3>")
+        elif cleaned.startswith("### "):
+            html_parts.append(f"<h4>{html.escape(cleaned[4:])}</h4>")
+        else:
+            html_parts.append(f"<p>{html.escape(cleaned)}</p>")
+    return "\n".join(html_parts)
 
 
 class EPUBExporter(BaseExporter):
@@ -35,7 +38,7 @@ class EPUBExporter(BaseExporter):
         self._ensure_output_dir(output_path)
 
         book = epub.EpubBook()
-        book.set_identifier("manuscriptfinesse-epub-01")
+        book.set_identifier(f"urn:uuid:{uuid.uuid4()}")
         book.set_title(self.title)
         book.set_language("en")
         book.add_author(self.author)

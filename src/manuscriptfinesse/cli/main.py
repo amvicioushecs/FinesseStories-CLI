@@ -188,8 +188,10 @@ def draft(
 
     console.print(f"[bold cyan][STAGE 5][/bold cyan] Recursive draft execution for {len(target_beats)} chapter(s)...")
 
-    for cb in target_beats:
-        sliding_context = assemble_sliding_context(beats, window_size=2)
+    for idx, cb in enumerate(target_beats):
+        beat_idx = beats.index(cb) if cb in beats else idx
+        preceding_beats = beats[:beat_idx]
+        sliding_context = assemble_sliding_context(preceding_beats, window_size=2)
         prose = drafter.draft_chapter(beat=cb, bible=story_bible, sliding_summary=sliding_context)
         audit_res = auditor.audit_chapter(draft_text=prose, bible=story_bible)
 

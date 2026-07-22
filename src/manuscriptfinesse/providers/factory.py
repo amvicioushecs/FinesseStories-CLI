@@ -17,9 +17,13 @@ class LLMProviderFactory:
             return cls.get_mock_provider(model=model_spec or "mock-model")
         elif model_spec.startswith("gemini"):
             api_key = os.getenv("GEMINI_API_KEY", "")
+            if not api_key:
+                return cls.get_mock_provider(model=model_spec)
             return GeminiProvider(api_key=api_key, model=model_spec)
         elif model_spec.startswith("openrouter"):
             api_key = os.getenv("OPENROUTER_API_KEY", "")
+            if not api_key:
+                return cls.get_mock_provider(model=model_spec)
             return OpenRouterProvider(api_key=api_key, model=model_spec)
         else:
             return cls.get_mock_provider(model=model_spec)

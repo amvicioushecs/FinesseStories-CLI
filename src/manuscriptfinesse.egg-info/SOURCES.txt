@@ -1,0 +1,14 @@
+README.md
+pyproject.toml
+src/manuscriptfinesse/__init__.py
+src/manuscriptfinesse.egg-info/PKG-INFO
+src/manuscriptfinesse.egg-info/SOURCES.txt
+src/manuscriptfinesse.egg-info/dependency_links.txt
+src/manuscriptfinesse.egg-info/entry_points.txt
+src/manuscriptfinesse.egg-info/requires.txt
+src/manuscriptfinesse.egg-info/top_level.txt
+src/manuscriptfinesse/core/__init__.py
+src/manuscriptfinesse/core/config.py
+src/manuscriptfinesse/core/models.py
+src/manuscriptfinesse/core/project.py
+tests/test_core_models.py

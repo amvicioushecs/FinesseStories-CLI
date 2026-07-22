@@ -6,9 +6,13 @@ from manuscriptfinesse.providers.base import BaseLLMProvider
 
 def load_input(raw_input: str) -> str:
     """Helper function to load content from a file path if it exists, or return raw text string."""
-    if isinstance(raw_input, str) and os.path.exists(raw_input) and os.path.isfile(raw_input):
-        with open(raw_input, "r", encoding="utf-8") as f:
-            return f.read()
+    if isinstance(raw_input, str) and "\n" not in raw_input and "\r" not in raw_input:
+        try:
+            if os.path.exists(raw_input) and os.path.isfile(raw_input):
+                with open(raw_input, "r", encoding="utf-8") as f:
+                    return f.read()
+        except (OSError, ValueError):
+            pass
     return raw_input
 
 

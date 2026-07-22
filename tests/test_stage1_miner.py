@@ -18,6 +18,12 @@ def test_load_input_helper_raw_text():
     assert load_input(raw_text) == raw_text
 
 
+def test_load_input_helper_multiline_raw_text():
+    """Verify load_input helper handles multi-line raw text on Windows without OSError."""
+    multiline_text = "Line 1: High fantasy realm\nLine 2: Dragon riders\nLine 3: Ancient glyphs"
+    assert load_input(multiline_text) == multiline_text
+
+
 def test_load_input_helper_file_path(tmp_path):
     """Verify load_input helper reads file contents when passed an existing file path."""
     input_file = tmp_path / "notes.txt"

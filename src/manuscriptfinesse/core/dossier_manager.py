@@ -23,10 +23,8 @@ class DossierManager:
 
     def _resolve_filepath(self, target_dir: str, name_or_slug: str) -> str:
         """Resolves target directory and name/slug to absolute file path."""
-        if name_or_slug.endswith(".md"):
-            filename = name_or_slug
-        else:
-            filename = f"{slugify(name_or_slug)}.md"
+        clean_name = name_or_slug[:-3] if name_or_slug.endswith(".md") else name_or_slug
+        filename = f"{slugify(clean_name)}.md"
         return os.path.join(target_dir, filename)
 
     # --- Character Dossiers ---
@@ -101,24 +99,21 @@ class DossierManager:
         smells: Optional[List[str]] = None,
         sounds: Optional[List[str]] = None,
         visuals_and_textures: Optional[List[str]] = None,
+        factions_present: Optional[List[str]] = None,
         points_of_interest: Optional[List[str]] = None,
-        raw_content: Optional[str] = None
+        raw_content: Optional[str] = None,
     ) -> str:
-        """Saves sensory location dossier Markdown file. Returns the created file path."""
+        """Formats and saves a structured location dossier with 5-sense sensory details to disk."""
         filepath = self._resolve_filepath(self.loc_dir, name)
 
         if raw_content:
             content = raw_content
         else:
-            smells_list = smells or []
-            sounds_list = sounds or []
-            visuals_list = visuals_and_textures or []
-            poi_list = points_of_interest or []
-
-            smells_fmt = "\n".join([f"- {s}" for s in smells_list]) if smells_list else "None specified."
-            sounds_fmt = "\n".join([f"- {s}" for s in sounds_list]) if sounds_list else "None specified."
-            visuals_fmt = "\n".join([f"- {v}" for v in visuals_list]) if visuals_list else "None specified."
-            poi_fmt = "\n".join([f"- {p}" for p in poi_list]) if poi_list else "None specified."
+            smells_str = "\n".join(f"- {s}" for s in (smells or ["None specified"]))
+            sounds_str = "\n".join(f"- {s}" for s in (sounds or ["None specified"]))
+            visuals_str = "\n".join(f"- {v}" for v in (visuals_and_textures or ["None specified"]))
+            factions_str = "\n".join(f"- {f}" for f in (factions_present or ["None specified"]))
+            poi_str = "\n".join(f"- {p}" for p in (points_of_interest or ["None specified"]))
 
             content = (
                 f"# Location Dossier: {name}\n\n"
@@ -130,15 +125,14 @@ class DossierManager:
                 f"- **Moisture & Humidity:** {moisture}\n"
                 f"- **Weather & Illumination:** {weather_lighting}\n\n"
                 f"## Immersive 5-Sense Sensory Profile\n"
-                f"### Olfactory (What am I smelling?)\n{smells_fmt}\n\n"
-                f"### Auditory (What am I hearing?)\n{sounds_fmt}\n\n"
-                f"### Visuals & Textures underfoot\n{visuals_fmt}\n\n"
-                f"## Key Points of Interest\n{poi_fmt}\n"
+                f"### Olfactory (What am I smelling?)\n{smells_str}\n\n"
+                f"### Auditory (What am I hearing?)\n{sounds_str}\n\n"
+                f"### Visuals & Textures underfoot\n{visuals_str}\n\n"
+                f"## Factions Present\n{factions_str}\n\n"
+                f"## Key Points of Interest\n{poi_str}\n"
             )
-
         with open(filepath, "w", encoding="utf-8") as f:
             f.write(content)
-
         return filepath
 
     def read_location_dossier(self, name_or_slug: str) -> str:

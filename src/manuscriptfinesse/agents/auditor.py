@@ -114,7 +114,7 @@ class ContinuityAuditorAgent(BaseAgent):
                         # Extract the target concept before prepositions
                         target_concept = re.split(r'\b(in|on|at|with|under|by|from|to|for|during|against)\b', after_prefix)[0].strip()
                         target_concept = target_concept.rstrip(".")
-                        if target_concept and len(target_concept) > 2 and target_concept in draft_lower:
+                        if target_concept and len(target_concept) > 2 and re.search(r'\b' + re.escape(target_concept) + r'\b', draft_lower):
                             violation_msg = f"Potential violation of canon rule: '{rule}' (found forbidden term '{target_concept}')"
                             if violation_msg not in canon_violations:
                                 canon_violations.append(violation_msg)

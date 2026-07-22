@@ -14,7 +14,7 @@ DEFAULT_DRAFTER_SYSTEM_PROMPT = (
 
 def assemble_sliding_context(preceding_chapters: List[ChapterBeat], window_size: int = 2) -> str:
     """Assembles a sliding context window string from the last `window_size` preceding chapters."""
-    if not preceding_chapters:
+    if not preceding_chapters or window_size <= 0:
         return ""
     recent = preceding_chapters[-window_size:]
     summaries = []

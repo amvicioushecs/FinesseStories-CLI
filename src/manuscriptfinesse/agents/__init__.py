@@ -6,6 +6,7 @@ from manuscriptfinesse.agents.outliner import OutlinerAgent
 from manuscriptfinesse.agents.drafter import DrafterAgent, assemble_sliding_context
 from manuscriptfinesse.agents.auditor import ContinuityAuditorAgent, compute_hash_repetition_score
 from manuscriptfinesse.agents.polisher import PolisherAgent
+from manuscriptfinesse.agents.natural_language import NaturalLanguageAgent, create_natural_language_interface
 
 __all__ = [
     "BaseAgent",
@@ -16,8 +17,10 @@ __all__ = [
     "DrafterAgent",
     "ContinuityAuditorAgent",
     "PolisherAgent",
+    "NaturalLanguageAgent",
     "assemble_sliding_context",
     "compute_hash_repetition_score",
     "load_input",
+    "create_natural_language_interface",
 ]
 

@@ -336,11 +336,56 @@ def export(
 
 
 @app.command()
-def shell():
-    """Launch interactive REPL shell session for ManuscriptFinesse."""
+def setup():
+    """Launch the interactive onboarding wizard to configure AI providers and API keys.
+
+    This wizard will help you:
+    - Select which LLM providers to use (Gemini, OpenRouter, OpenAI, Anthropic, Ollama)
+    - Securely store your API keys with encryption
+    - Choose a model routing strategy (balanced, budget, or premium)
+    - Test your connections to ensure everything works
+
+    Run this command when you first install ManuscriptFinesse or whenever
+    you want to reconfigure your providers.
+    """
+    from manuscriptfinesse.cli.onboarding import run_onboarding
+
+    success = run_onboarding()
+    if not success:
+        raise typer.Exit(1)
+
+
+@app.command()
+def shell(natural_language: bool = typer.Option(True, "--natural-language", "-nl", help="Enable natural language mode (default: True)")):
+    """Launch interactive REPL shell session for ManuscriptFinesse.
+
+    By default, starts in natural language mode where you can type requests
+    in plain English. Use --no-natural-language for traditional command mode.
+    """
     from manuscriptfinesse.cli.repl import launch_repl
 
-    launch_repl()
+    launch_repl(natural_language=natural_language)
+
+
+@app.command()
+def chat():
+    """Launch the Natural Language Interface for ManuscriptFinesse.
+
+    This provides an AI-powered conversational interface where you can
+    interact with ManuscriptFinesse using plain English instead of
+    memorizing terminal commands.
+
+    Examples:
+        - "Create a new fantasy novel called The Dragon's Quest"
+        - "Ingest my notes from story_ideas.txt"
+        - "Create a character dossier for John Smith"
+        - "Generate an outline with 20 chapters"
+        - "Draft chapter 5"
+        - "Export to EPUB format"
+    """
+    from manuscriptfinesse.cli.repl import launch_repl
+
+    launch_repl(natural_language=True)
 
 
 if __name__ == "__main__":

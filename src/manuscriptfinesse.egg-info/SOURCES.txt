@@ -13,14 +13,17 @@ src/manuscriptfinesse/agents/base_agent.py
 src/manuscriptfinesse/agents/dossier_builder.py
 src/manuscriptfinesse/agents/drafter.py
 src/manuscriptfinesse/agents/miner.py
+src/manuscriptfinesse/agents/natural_language.py
 src/manuscriptfinesse/agents/outliner.py
 src/manuscriptfinesse/agents/polisher.py
 src/manuscriptfinesse/agents/synthesizer.py
 src/manuscriptfinesse/cli/__init__.py
 src/manuscriptfinesse/cli/main.py
+src/manuscriptfinesse/cli/onboarding.py
 src/manuscriptfinesse/cli/repl.py
 src/manuscriptfinesse/core/__init__.py
 src/manuscriptfinesse/core/config.py
+src/manuscriptfinesse/core/credentials.py
 src/manuscriptfinesse/core/dossier_manager.py
 src/manuscriptfinesse/core/models.py
 src/manuscriptfinesse/core/project.py

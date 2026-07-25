@@ -206,7 +206,7 @@ class NaturalLanguageAgent:
         
         # Check for slash commands first (highest priority)
         if user_input_lower.startswith('/'):
-            return self._handle_slash_command(user_input_lower)
+            return self._handle_slash_command(user_input.strip())
 
         # Try to match against known command patterns
         best_match = None

@@ -1,18 +1,35 @@
 ```
-# Python packaging
-*.egg-info/
-*.egg
+# Compiled Python files
 *.pyc
 __pycache__/
 
-# Dependencies
+# Distribution artifacts
+dist/
+build/
+*.egg-info/
+
+# Virtual environments
 .venv/
 venv/
+
+# Logs
+*.log
+
+# Environment files
 .env
 .env.local
-.env.*
+*.env.*
 
-# Build artifacts
-build/
-dist/
+# Editors
+.vscode/
+.idea/
+
+# Coverage reports
+.coverage
+coverage/
+htmlcov/
+
+# Testing
+.pytest_cache/
+.mypy_cache/
 ```

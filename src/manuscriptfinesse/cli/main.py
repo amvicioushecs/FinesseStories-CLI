@@ -336,11 +336,36 @@ def export(
 
 
 @app.command()
-def shell():
-    """Launch interactive REPL shell session for ManuscriptFinesse."""
+def shell(natural_language: bool = typer.Option(True, "--natural-language", "-nl", help="Enable natural language mode (default: True)")):
+    """Launch interactive REPL shell session for ManuscriptFinesse.
+
+    By default, starts in natural language mode where you can type requests
+    in plain English. Use --no-natural-language for traditional command mode.
+    """
     from manuscriptfinesse.cli.repl import launch_repl
 
-    launch_repl()
+    launch_repl(natural_language=natural_language)
+
+
+@app.command()
+def chat():
+    """Launch the Natural Language Interface for ManuscriptFinesse.
+
+    This provides an AI-powered conversational interface where you can
+    interact with ManuscriptFinesse using plain English instead of
+    memorizing terminal commands.
+
+    Examples:
+        - "Create a new fantasy novel called The Dragon's Quest"
+        - "Ingest my notes from story_ideas.txt"
+        - "Create a character dossier for John Smith"
+        - "Generate an outline with 20 chapters"
+        - "Draft chapter 5"
+        - "Export to EPUB format"
+    """
+    from manuscriptfinesse.cli.repl import launch_repl
+
+    launch_repl(natural_language=True)
 
 
 if __name__ == "__main__":

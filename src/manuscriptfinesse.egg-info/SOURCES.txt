@@ -13,6 +13,7 @@ src/manuscriptfinesse/agents/base_agent.py
 src/manuscriptfinesse/agents/dossier_builder.py
 src/manuscriptfinesse/agents/drafter.py
 src/manuscriptfinesse/agents/miner.py
+src/manuscriptfinesse/agents/natural_language.py
 src/manuscriptfinesse/agents/outliner.py
 src/manuscriptfinesse/agents/polisher.py
 src/manuscriptfinesse/agents/synthesizer.py

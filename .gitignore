@@ -1,7 +1,18 @@
-__pycache__/
-*.pyc
+```
+# Python packaging
 *.egg-info/
-.pytest_cache/
-.manuscriptfinesse/
-bible/
-chapters/
+*.egg
+*.pyc
+__pycache__/
+
+# Dependencies
+.venv/
+venv/
+.env
+.env.local
+.env.*
+
+# Build artifacts
+build/
+dist/
+```
